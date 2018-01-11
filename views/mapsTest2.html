@@ -13,13 +13,14 @@
   </style>
 </head>
 <body>
-  <h1>My Google Map</h1>
+  <h1>My Google Map2</h1>
   <button id="loadButton">LOAD</button>
   <div id="map"></div>
   <script>
 	var uniqueId = 0;
 	var infoWindow, pos, map;
 	var mapsKey = process.env.mapsKey;
+	console.log(typeof(mapsKey));
 	function initMap(){
 	  // Map options
 	  var options = {
