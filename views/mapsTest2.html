@@ -19,6 +19,7 @@
   <script>
 	var uniqueId = 0;
 	var infoWindow, pos, map;
+	var mapsKey = process.env.mapsKey;
 	function initMap(){
 	  // Map options
 	  var options = {
@@ -128,7 +129,7 @@
 	});
   </script>
 	<script async defer
-	src='https://maps.googleapis.com/maps/api/js?key='+process.env.mapsKey>
+	src='https://maps.googleapis.com/maps/api/js?key='+mapsKey>
 	</script>
   </body>
 </html>
