@@ -1,0 +1,21 @@
+{
+  "name": "rtd-pass",
+  "version": "1.0.0",
+  "description": "## Squeezing every minute out of an RTD pass",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rickytranmer/rtd-pass.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rickytranmer/rtd-pass/issues"
+  },
+  "homepage": "https://github.com/rickytranmer/rtd-pass#readme"
+}
