@@ -4,7 +4,6 @@ console.log('- 	/rtd-pass/server.js');
 var express 	= require('express');
 var app 		= express();
 var request		= require('request');
-var myVar 		= require('./config/env');
 var passport    = require('passport');
 var flash       = require('connect-flash');
 
