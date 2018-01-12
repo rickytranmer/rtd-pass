@@ -9,7 +9,7 @@ var passport    = require('passport');
 var flash       = require('connect-flash');
 
 app.use(express.static(__dirname + '/public'));
-app.use(require('helmet'));
+app.use(require('helmet')());
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 
