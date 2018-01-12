@@ -19,7 +19,14 @@
   },
   "homepage": "https://github.com/rickytranmer/rtd-pass#readme",
   "dependencies": {
+    "ejs": "^2.5.7",
     "express": "^4.16.2",
-    "mongoose": "^4.13.9"
+    "helmet": "^3.9.0",
+    "mongoose": "^4.13.9",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.1.0"
   }
 }
