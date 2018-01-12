@@ -1,11 +1,15 @@
 console.log();	// Start server.js
 console.log('- 	/rtd-pass/server.js');
 
-var express 	= require('express');
-var app 		= express();
-var request		= require('request');
-var passport    = require('passport');
-var flash       = require('connect-flash');
+const express 	= require('express');
+const app 		= express();
+const request	= require('request');
+const passport	= require('passport');
+const flash     = require('connect-flash');
+const session 	= require('express-session')
+const mongoose	= require('mongoose');
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/rtd-pass");
 
 app.use(express.static(__dirname + '/public'));
 app.use(require('helmet')());
@@ -13,30 +17,22 @@ app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 
 // - EJS
-app.set('views', __dirname + '/views/partials');
+app.set('views', './views');
 app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 
-app.use(require('express-session')({ secret: 'Ricky-So-Fine' })); 
+// - Passport
+app.use(session({ secret: 'Ricky-So-Fine' })); 
 app.use(passport.initialize());
 app.use(passport.session()); 
-app.use(flash()); 
+app.use(flash());
+require('./config/passport')(passport);
 
 // - Routes
-app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/views/index.html');
-});
-// app.get('/take', function(req, res) {
-	
-// });
-// app.get('/leave', function(req, res) {
-	
-// });
-// app.get('/account', function(req, res) {
-	
-// });
+let router = require('./config/routes');
+app.use('/', router);
 
 // - Listening on Heroku on port 3000
 app.listen(process.env.PORT || 3000, function() {
-	console.log('listening on', process.env.PORT||3000);
+	console.log('listening on Andre', process.env.PORT||3000);
 });

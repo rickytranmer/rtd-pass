@@ -1,51 +1,50 @@
-var uniqueId = 0;
-var infoWindow, pos, map;
+let uniqueId = 0;
+let infoWindow, pos, map;
 
 function initMap(){
-	// Map options
-	var options = {
+	// - Map options
+	let options = {
 		zoom:19,
 		center:{lat:39.7536,lng:-105},
-		streetViewControl: false,
-		fullscreenControl: false,
+		streetViewControl: false,	// - Disable streetView
+		fullscreenControl: false,	// - Disable fullscreen
 		mapTypeControl: true,
-		mapTypeControlOptions: {
+		mapTypeControlOptions: {	// - Dropdown instead of horizontal bar
 		  style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
 		}
 	}
 
-	// New map
+	// - Create map
 	map = new google.maps.Map(document.getElementById('map'), options);
 	console.log(map);
 	centerMap();
 
-	// Listen for click on map
+	// - Listen for click on map
 	google.maps.event.addListener(map, 'click', function(event){
-		// Add marker
+		// - Add marker
 		addMarker({coords:event.latLng});
 	});
 
 	//TODO - Placeholder for DB
-	var markers = [
+	let markers = [
 		{ coords:{lat:39.7534, lng:-105.001} },
 		{ coords:{lat:39.7536, lng:-105}     },
 		{ coords:{lat:39.7535, lng:-104.999} }
 	];
-
-	var markersList = [];
+	let markersList = [];
 
 	// Loop through markers
-	for(var i = 0; i < markers.length; i++){
-		// Add marker
+	for(let i = 0; i < markers.length; i++){
+		// Call add marker function
 		addMarker(markers[i]);
 	}
 
-	// Add Marker Function
+	// - Add Marker
 	function addMarker(props){
 		props.id = uniqueId;
 		uniqueId++;
 
-		var marker = new google.maps.Marker({
+		let marker = new google.maps.Marker({
 			position:props.coords,
 			id:props.id,
 			map:map
@@ -66,6 +65,7 @@ function initMap(){
 	}
 }
 
+// - Center map if location is available
 function centerMap() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
@@ -78,7 +78,7 @@ function centerMap() {
 		}, function() {
 			console.log('location failure');
 		});
-	} else {	// Browser doesn't support Geolocation
+	} else {	// - Browser doesn't support Geolocation
 		console.log('your browser sucks');
 	}
 }
