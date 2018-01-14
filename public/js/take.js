@@ -90,4 +90,7 @@ function centerMap(currentPos) {
 $(function() {
 	console.log('take loaded');
 	$('#takeBtn').toggleClass('btn-outline-primary').css('letter-spacing', '5px').css('font-size', '4rem');
+	$('h1').click(function() {
+		$(location).attr('href', '/');
+	});
 });
