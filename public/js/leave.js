@@ -43,8 +43,10 @@ function initMap() {
 		marker.addListener('click', function() {
 			if (infoWindow) { infoWindow.close() }
 			infoWindow.open(map, marker);
+			cancelTicket(marker);
 		});
 
+		// - Form in popup window to take ticket time
 		if (infoWindow) {infoWindow.close()}
 		infoWindow = new google.maps.InfoWindow({
 			content: '<div class="container-fluid"><form action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="endTime"></div></form><button id="leaveButton" class="btn btn-lg col-10 btn-primary">Submit</button><button id="cancelButton" class="btn btn-lg col-8 btn-danger">Remove</button></div>'
@@ -57,6 +59,9 @@ function initMap() {
 			marker.setMap(null);
 			addMarker({coords:event.latLng});
 		});
+
+		// - Delayed click listener for removing ticket
+		cancelTicket(marker);
 	}
 }
 
@@ -80,6 +85,15 @@ function centerMap(currentPos) {
 			console.log('your browser sucks');
 		}
 	}
+}
+
+function cancelTicket(marker) {
+	setTimeout(function() {
+		$('#cancelButton').click(function() {
+			if (infoWindow) { infoWindow.close() }
+			marker.setMap(null);
+		});
+	}, 500);	
 }
 
 $(function() {
