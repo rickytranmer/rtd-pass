@@ -1,7 +1,7 @@
 let infoWindow, pos, map;
 let uniqueId = 0;
 
-function initMap(){
+function initMap() {
 	// - Map options
 	let options = {
 		zoom:19,
@@ -25,19 +25,7 @@ function initMap(){
 		addMarker({coords:event.latLng});
 	});
 
-	//TODO - Placeholder for DB
-	let markers = [
-		{ coords: {lat:39.7534, lng:-105.001} },
-		{ coords: {lat:39.7536, lng:-105}     },
-		{ coords: {lat:39.7535, lng:-104.999} }
-	];
 	let markersList = [];
-
-	// Loop through markers
-	for(let i = 0; i < markers.length; i++){
-		// Call add marker function
-		addMarker(markers[i]);
-	}
 
 	// - Add Marker
 	function addMarker(props){
@@ -52,26 +40,42 @@ function initMap(){
 		});
 
 		if (infoWindow) {infoWindow.close()}
-		infoWindow = new google.maps.InfoWindow({content:"<button id='claimButton' class='btn btn-primary'>CLAIM</button>"});
+		infoWindow = new google.maps.InfoWindow({
+			content: '<div class="container-fluid"><form action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="endTime"></div></form><button id="leaveButton" class="btn btn-lg btn-primary">Submit</button</div>'
+		});
 		markersList.push(marker);
+		marker.addListener('click', function() {
+			infoWindow.open(map, marker);
+			$('#claimButton').click(function(event) {
+				event.preventDefault();
+				marker.setMap(null);
+				markersList.splice(markersList.indexOf(marker), 1);
+				console.log('Deleted #' + marker.id + ', markersList.length = ' + markersList.length);
+				console.log(markersList);
+			});
+		});
 	}
 }
 
 // - Center map if location is available
-function centerMap() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position) {
-			pos = {
-				lat: position.coords.latitude,
-				lng: position.coords.longitude
-			};
-			map.setCenter(pos);
-			setTimeout(function() {centerMap()}, 15000);
-		}, function() {
-			console.log('location failure');
-		});
-	} else {	// - Browser doesn't support Geolocation
-		console.log('your browser sucks');
+function centerMap(currentPos) {
+	if (currentPos) {
+		map.setCenter(currentPos);
+	} else {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+				map.setCenter(pos);
+				setTimeout(function() {centerMap()}, 15000);
+			}, function() {
+				console.log('location failure');
+			});
+		} else {	// - Browser doesn't support Geolocation
+			console.log('your browser sucks');
+		}
 	}
 }
 

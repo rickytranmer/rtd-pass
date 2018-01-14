@@ -1,7 +1,7 @@
 let infoWindow, pos, map;
 let uniqueId = 0;
 
-function initMap(){
+function initMap() {
 	// - Map options
 	let options = {
 		zoom:19,
@@ -41,8 +41,7 @@ function initMap(){
 		let marker = new google.maps.Marker({
 			position: props.coords,
 			id: props.id,
-			map: map,
-    		draggable: true
+			map: map
 		});
 
 		if (infoWindow) {infoWindow.close()}
@@ -61,20 +60,24 @@ function initMap(){
 }
 
 // - Center map if location is available
-function centerMap() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position) {
-			pos = {
-				lat: position.coords.latitude,
-				lng: position.coords.longitude
-			};
-			map.setCenter(pos);
-			setTimeout(function() {centerMap()}, 15000);
-		}, function() {
-			console.log('location failure');
-		});
-	} else {	// - Browser doesn't support Geolocation
-		console.log('your browser sucks');
+function centerMap(currentPos) {
+	if (currentPos) {
+		map.setCenter(currentPos);
+	} else {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+				map.setCenter(pos);
+				setTimeout(function() {centerMap()}, 15000);
+			}, function() {
+				console.log('location failure');
+			});
+		} else {	// - Browser doesn't support Geolocation
+			console.log('your browser sucks');
+		}
 	}
 }
 

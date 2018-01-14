@@ -1,27 +1,18 @@
-const router 	= require('express').Router();
-const passport 	= require('passport');
-var usersController = require('../controllers/users');
+const router 			= require('express').Router();
+const passport 			= require('passport');
+const usersController 	= require('../controllers/users');
+const staticsController = require('../controllers/statics');
 
-router.get('/', function(req, res) {
-	res.render('take');
-});
-// router.get('/take', function(req, res) {
-	
-// });
-// router.get('/leave', function(req, res) {
-	
-// });
+router.get('/', staticsController.home);
 
-router.get('/signup', function(req, res) {
-	res.render('signup', {message: req.flash('signupMessage')});
-});
-router.post('/signup', function(req, res, next) {
-	let signupStrategy = passport.authenticate('local-signup', {
-		successRedirect: 	'/',
-		failureRedirect: 	'/account',
-		failureFlash: 		true
-	});
-	return signupStrategy(req, res, next);
-});
+router.get('/take', staticsController.takeTicket);
+
+router.get('/leave', staticsController.leaveTicket);
+
+router.get('/signup', usersController.getSignup);
+router.post('/signup', usersController.postSignup);
+
+router.get('/login', usersController.getLogin);
+router.post('/login', usersController.postLogin);
 
 module.exports = router;

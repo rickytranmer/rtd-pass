@@ -1,13 +1,67 @@
+nav {
+	height: 10vh;
+	width: 100%;
+	color: gold;
+	font-style: italic;
+}
+h1 {
+	font-size: 3em;
+	margin: 0 5vw;
+}
+h2 {
+	font-size: 5rem;
+	padding: 3vh 0vw;
+	margin: 2vh 0vw;
+}
+input {
+	height: 10vh;
+	font-size: 24px;
+}
+
 #map {
 	height: 80vh;
 	width: 100%;
+	text-align: center;
 }
-#claimButton {
+#claimButton, .gm-style-iw {
 	width: 8vw;
 	height: 8vh;
 }
-
-.gm-style-iw {
-	width: 8vw;
-	height: 8vh;
+.btn-primary {
+	height: 10vh;
+	width: 100%;
+	font-size: 3rem;
+	margin: 0;
+	text-align: center;
+	border: 2px solid white;
+}
+.btn-left {
+	border-right: 0.5px solid white;
+}
+.btn-right {
+	border-left: 0.5px solid white;
+}
+.row {
+	padding: 0;
+	margin: 0;
+}
+.navbar {	
+	padding: 0;
+}
+.navbar-text {
+	margin: 0;
+	height: 10vh;
+}
+.navbar-text:hover {
+	color: white;
+}
+.form-control {
+	font-size: 3rem;
+	margin: 5vh 0;
+}
+.btn-outline-primary:not([disabled]):not(.disabled):active {
+	color: #007bff;
+	background-color: transparent;
+	box-shadow: 0 0 0 0;
+	border: none;
 }
