@@ -56,6 +56,7 @@ function initMap() {
 		marker.addListener('click', function() {
 			infoWindow.open(map, marker);
 			$('#claimButton').click(function() {
+				$('#claimButton').off();
 				marker.setMap(null);
 				markersList.splice(markersList.indexOf(marker), 1);
 				console.log('Deleted #' + marker.id + ', markersList.length = ' + markersList.length);

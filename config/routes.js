@@ -1,13 +1,14 @@
 const router 			= require('express').Router();
 const passport 			= require('passport');
 const usersController 	= require('../controllers/users');
+const ticketsController = require('../controllers/tickets');
 const staticsController = require('../controllers/statics');
 
 router.get('/', staticsController.home);
 
-router.get('/take', staticsController.takeTicket);
+router.get('/take', ticketsController.getTake);
 
-router.get('/leave', staticsController.leaveTicket);
+router.get('/leave', ticketsController.getLeave);
 
 router.get('/signup', usersController.getSignup);
 router.post('/signup', usersController.postSignup);
