@@ -1,4 +1,31 @@
+#cancelButton {
+	font-size: 2rem;
+	margin-top: 2vh;
+	letter-spacing: 5px;
+
+}
+#leaveButton {
+	height: 5vh;
+	font-size: 3rem;
+	letter-spacing: 5px;
+}
+
 .gm-style-iw {
-	height: 35vh;
+	height: 30vh;
 	width: 100%;
+}
+.form-control {
+	margin: 3vh auto;
+}
+
+@media screen 
+  and (min-device-width: 1080px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+  	#leaveButton {
+  		height: 10vh;
+  	}
+  	.gm-style-iw {
+		height: 40vh;
+		width: 100%;
+	}
 }

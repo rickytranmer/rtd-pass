@@ -35,7 +35,6 @@ function initMap() {
 			position: props.coords,
 			id: props.id,
 			map: map,
-    		draggable: true,
     		icon: {
 				url: "images/new-ticket.png",
 				scaledSize: new google.maps.Size(100, 100)
@@ -48,11 +47,16 @@ function initMap() {
 
 		if (infoWindow) {infoWindow.close()}
 		infoWindow = new google.maps.InfoWindow({
-			content: '<div class="container-fluid"><form action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="endTime"></div></form><button id="leaveButton" class="btn btn-lg btn-primary">Submit</button</div>'
+			content: '<div class="container-fluid"><form action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="endTime"></div></form><button id="leaveButton" class="btn btn-lg col-10 btn-primary">Submit</button><button id="cancelButton" class="btn btn-lg col-8 btn-danger">Remove</button></div>'
 		});
 		infoWindow.open(map, marker);
-
+	
+		// - Only allow one new ticket on map
 		google.maps.event.removeListener(mapClick);
+		let newClick = google.maps.event.addListener(map, 'click', function(event){
+			marker.setMap(null);
+			addMarker({coords:event.latLng});
+		});
 	}
 }
 
@@ -80,5 +84,5 @@ function centerMap(currentPos) {
 
 $(function() {
 	console.log('leave loaded');
-	$('#leaveBtn').toggleClass('btn-outline-primary');
+	$('#leaveBtn').toggleClass('btn-outline-primary').css('letter-spacing', '5px').css('font-size', '4rem');
 });
