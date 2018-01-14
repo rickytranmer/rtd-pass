@@ -9,9 +9,9 @@ Have you ever bought an RTD ticket, but only plan on using it for one trip?  Or 
 	- pick up an available ticket
 
 ### Tech used:
-	- HTML, CSS, JS (vanilla/jQuery?)
+	- HTML, CSS, JS, jQuery
 	- Bootstrap (Sass?)
 	- Google Maps API
-	- Passport (Okta?)
+	- Passport
 	- Node, Express, Mongo
 	- Github & Heroku
