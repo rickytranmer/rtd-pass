@@ -1,11 +1,16 @@
 $(function() {
 	console.log('nav.js');
-	$('#logInBtn').removeClass('active');
-	$('#signUpBtn').removeClass('active');
+
 	$('#signUpBtn').click(function() {
 		$(location).attr('href', '/signup');
 	});
 	$('#logInBtn').click(function() {
 		$(location).attr('href', '/login');
+	});
+	$('#takeBtn').click(function() {
+		$(location).attr('href', '/take');
+	});
+	$('#leaveBtn').click(function() {
+		$(location).attr('href', '/leave');
 	});
 });

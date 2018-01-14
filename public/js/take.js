@@ -45,7 +45,7 @@ function initMap() {
 		});
 
 		if (infoWindow) {infoWindow.close()}
-		infoWindow = new google.maps.InfoWindow({content:"<button id='claimButton' class='btn btn-primary'>CLAIM</button>"});
+		infoWindow = new google.maps.InfoWindow({content:"<button id='claimButton' class='btn btn-success'>CLAIM</button>"});
 		markersList.push(marker);
 		marker.addListener('click', function() {
 			infoWindow.open(map, marker);
@@ -82,5 +82,6 @@ function centerMap(currentPos) {
 }
 
 $(function() {
-	console.log('loaded');
+	console.log('take loaded');
+	$('#takeBtn').toggleClass('btn-outline-primary');
 });

@@ -6,10 +6,11 @@ function initMap() {
 	let options = {
 		zoom:19,
 		center:{lat:39.7536,lng:-105},
+		clickableIcons: false,
 		streetViewControl: false,	// - Disable streetView
 		fullscreenControl: false,	// - Disable fullscreen
-		mapTypeControl: true,
-		mapTypeControlOptions: {	// - Dropdown instead of horizontal bar
+		mapTypeControl: true,		// - Dropdown instead of horizontal bar
+		mapTypeControlOptions: {
 		  style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
 		}
 	}
@@ -20,12 +21,10 @@ function initMap() {
 	centerMap();
 
 	// - Listen for click on map
-	google.maps.event.addListener(map, 'click', function(event){
+	let mapClick = google.maps.event.addListener(map, 'click', function(event){
 		// - Add marker
 		addMarker({coords:event.latLng});
 	});
-
-	let markersList = [];
 
 	// - Add Marker
 	function addMarker(props){
@@ -36,24 +35,24 @@ function initMap() {
 			position: props.coords,
 			id: props.id,
 			map: map,
-    		draggable: true
+    		draggable: true,
+    		icon: {
+				url: "images/new-ticket.png",
+				scaledSize: new google.maps.Size(100, 100)
+			}
+		});
+		marker.addListener('click', function() {
+			if (infoWindow) { infoWindow.close() }
+				infoWindow.open(map, marker);
 		});
 
 		if (infoWindow) {infoWindow.close()}
 		infoWindow = new google.maps.InfoWindow({
 			content: '<div class="container-fluid"><form action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="endTime"></div></form><button id="leaveButton" class="btn btn-lg btn-primary">Submit</button</div>'
 		});
-		markersList.push(marker);
-		marker.addListener('click', function() {
-			infoWindow.open(map, marker);
-			$('#claimButton').click(function(event) {
-				event.preventDefault();
-				marker.setMap(null);
-				markersList.splice(markersList.indexOf(marker), 1);
-				console.log('Deleted #' + marker.id + ', markersList.length = ' + markersList.length);
-				console.log(markersList);
-			});
-		});
+		infoWindow.open(map, marker);
+
+		google.maps.event.removeListener(mapClick);
 	}
 }
 
@@ -80,5 +79,6 @@ function centerMap(currentPos) {
 }
 
 $(function() {
-	console.log('loaded');
+	console.log('leave loaded');
+	$('#leaveBtn').toggleClass('btn-outline-primary');
 });

@@ -1,3 +1,6 @@
+body {
+	font-family: 'Ubuntu', sans-serif;
+}
 nav {
 	height: 10vh;
 	width: 100%;
@@ -18,28 +21,38 @@ input {
 	font-size: 24px;
 }
 
+
+#claimButton, .gm-style-iw {
+	width: 16vw;
+	height: 8vh;
+	font-size: 2rem;
+	font-weight: 700;
+	font-family: 'Ubuntu', sans-serif;
+}
+
 #map {
 	height: 80vh;
 	width: 100%;
 	text-align: center;
 }
-#claimButton, .gm-style-iw {
-	width: 8vw;
-	height: 8vh;
-}
+
+
 .btn-primary {
 	height: 10vh;
 	width: 100%;
 	font-size: 3rem;
 	margin: 0;
+	padding: 0;
 	text-align: center;
 	border: 2px solid white;
 }
 .btn-left {
 	border-right: 0.5px solid white;
+	margin-left: -.5px;
 }
 .btn-right {
 	border-left: 0.5px solid white;
+	margin-right:  -.5px;
 }
 .row {
 	padding: 0;
@@ -47,10 +60,12 @@ input {
 }
 .navbar {	
 	padding: 0;
+
 }
 .navbar-text {
 	margin: 0;
 	height: 10vh;
+	border-bottom: 1px solid white;
 }
 .navbar-text:hover {
 	color: white;
