@@ -16,6 +16,9 @@ h2 {
 	padding: 3vh 0vw;
 	margin: 2vh 0vw;
 }
+h3 {
+	font-size: 2rem;
+}
 input {
 	height: 10vh;
 	font-size: 24px;

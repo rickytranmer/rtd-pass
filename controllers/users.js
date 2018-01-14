@@ -26,9 +26,15 @@ function postLogin(req, res, next) {
 	return loginStrategy(req, res, next);
 }
 
+function getLogout(req, res, next) {
+  req.logout();
+  res.redirect('/');
+}
+
 module.exports = {
 	getSignup: 	getSignup,
 	postSignup: postSignup,
 	getLogin: 	getLogin,
-	postLogin: postLogin
+	postLogin: 	postLogin,
+	getLogout: 	getLogout, 
 };

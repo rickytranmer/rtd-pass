@@ -7,12 +7,16 @@ $(function() {
 	$('#logInBtn').click(function() {
 		$(location).attr('href', '/login');
 	});
+	$('#logOutBtn').click(function() {
+		$(location).attr('href', '/logout');
+	});
 	$('#takeBtn').click(function() {
 		$(location).attr('href', '/take');
 	});
 	$('#leaveBtn').click(function() {
 		$(location).attr('href', '/leave');
 	});
+
 });
 
 function convertTime(millis) {
