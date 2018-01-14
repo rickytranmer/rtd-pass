@@ -19,12 +19,6 @@ function initMap(){
 	console.log(map);
 	centerMap();
 
-	// - Listen for click on map
-	google.maps.event.addListener(map, 'click', function(event){
-		// - Add marker
-		addMarker({coords:event.latLng});
-	});
-
 	//TODO - Placeholder for DB
 	let markers = [
 		{ coords: {lat:39.7534, lng:-105.001} },

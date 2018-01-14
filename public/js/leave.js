@@ -54,15 +54,6 @@ function initMap(){
 		if (infoWindow) {infoWindow.close()}
 		infoWindow = new google.maps.InfoWindow({content:"<button id='claimButton' class='btn btn-primary'>CLAIM</button>"});
 		markersList.push(marker);
-		marker.addListener('click', function() {
-			infoWindow.open(map, marker);
-			$('#claimButton').click(function() {
-				marker.setMap(null);
-				markersList.splice(markersList.indexOf(marker), 1);
-				console.log('Deleted #' + marker.id + ', markersList.length = ' + markersList.length);
-				console.log(markersList);
-			});
-		});
 	}
 }
 

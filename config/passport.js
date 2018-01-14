@@ -1,5 +1,5 @@
-let LocalStrategy = require('passport-local').Strategy;
-let User = require('../models/user');
+let LocalStrategy 	= require('passport-local').Strategy;
+let User 			= require('../models/user');
 
 module.exports = function(passport) {
 	passport.serializeUser(function(user, callback) {
@@ -12,16 +12,16 @@ module.exports = function(passport) {
 	});
 
 	passport.use('local-signup', new LocalStrategy({
-		usernameField: 'email',
-		passwordField: 'password',
-		passReqToCallback: true
+		usernameField: 		'email',
+		passwordField: 		'password',
+		passReqToCallback: 	true
 	}, function(req, email, password, callback) {
 		User.findOne({"email": email}, function(err, user) {
 			if (err) return callback(err);
 			if (user) {
 				return callback(null, false, req.flash('signupMessage', 'This email is already used.'));
 			} else {
-				var newUser 			= new User();
+				var newUser 		= new User();
 				newUser.email		= email;
 				newUser.password 	= newUser.encrypt(password);
 				newUser.save(function(err) {
@@ -31,10 +31,11 @@ module.exports = function(passport) {
 			}
 		});
 	}));
+
 	passport.use('local-login', new LocalStrategy({
-		usernameField: 'email',
-		passwordField: 'password',
-		passReqToCallback: true
+		usernameField: 		'email',
+		passwordField: 		'password',
+		passReqToCallback: 	true
 	}, function(req, email, password, callback) {
 		// Search for user
 		User.findOne({'email': email}, function(err, doc) {

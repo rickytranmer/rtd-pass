@@ -1,8 +1,9 @@
-const router = require('express').Router();
-const passport = require('passport');
+const router 	= require('express').Router();
+const passport 	= require('passport');
+var usersController = require('../controllers/users');
 
 router.get('/', function(req, res) {
-	res.render('index');
+	res.render('take');
 });
 // router.get('/take', function(req, res) {
 	
@@ -10,14 +11,15 @@ router.get('/', function(req, res) {
 // router.get('/leave', function(req, res) {
 	
 // });
-router.get('/account', function(req, res) {
-	res.render('account');
+
+router.get('/signup', function(req, res) {
+	res.render('signup', {message: req.flash('signupMessage')});
 });
-router.post('/account', function(req, res, next) {
+router.post('/signup', function(req, res, next) {
 	let signupStrategy = passport.authenticate('local-signup', {
-		successRedirect: '/',
-		failureRedirect: '/account',
-		failureFlash: true
+		successRedirect: 	'/',
+		failureRedirect: 	'/account',
+		failureFlash: 		true
 	});
 	return signupStrategy(req, res, next);
 });
