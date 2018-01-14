@@ -43,7 +43,7 @@ function initMap() {
 		});
 		marker.addListener('click', function() {
 			if (infoWindow) { infoWindow.close() }
-				infoWindow.open(map, marker);
+			infoWindow.open(map, marker);
 		});
 
 		if (infoWindow) {infoWindow.close()}

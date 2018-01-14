@@ -6,10 +6,11 @@ function initMap() {
 	let options = {
 		zoom:19,
 		center:{lat:39.7536,lng:-105},
+		clickableIcons: false,
 		streetViewControl: false,	// - Disable streetView
 		fullscreenControl: false,	// - Disable fullscreen
-		mapTypeControl: true,
-		mapTypeControlOptions: {	// - Dropdown instead of horizontal bar
+		mapTypeControl: true,		// - Dropdown instead of horizontal bar
+		mapTypeControlOptions: {
 		  style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
 		}
 	}
@@ -41,12 +42,17 @@ function initMap() {
 		let marker = new google.maps.Marker({
 			position: props.coords,
 			id: props.id,
-			map: map
+			map: map,
+    		icon: {
+				url: "images/ticket.png",
+				scaledSize: new google.maps.Size(100, 100)
+			}
 		});
-
-		if (infoWindow) {infoWindow.close()}
-		infoWindow = new google.maps.InfoWindow({content:"<button id='claimButton' class='btn btn-success'>CLAIM</button>"});
 		markersList.push(marker);
+
+		if (infoWindow) { infoWindow.close() }
+		infoWindow = new google.maps.InfoWindow({content:"<button id='claimButton' class='btn btn-success'>CLAIM</button>"});
+		
 		marker.addListener('click', function() {
 			infoWindow.open(map, marker);
 			$('#claimButton').click(function() {
