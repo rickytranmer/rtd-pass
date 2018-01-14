@@ -4,4 +4,4 @@ mongoose.connect(
 	{ useMongoClient: true } );
 console.log('praise mongod');
 module.exports.User = require('./user');
-//export & require Marker
+module.exports.Ticket = require('./ticket');
