@@ -24,7 +24,6 @@ input {
 	font-size: 24px;
 }
 
-
 #claimButton, .gm-style-iw {
 	width: 16vw;
 	height: 8vh;
@@ -47,6 +46,9 @@ input {
 	padding: 0;
 	text-align: center;
 	border: 2px solid white;
+}
+.btn-primary.btn-left, .btn-primary.btn-right {
+	transition: letter-spacing .5s ease-out, font-size .5s ease-out;
 }
 .btn-left {
 	border-right: 0.5px solid white;

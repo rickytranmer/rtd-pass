@@ -1,5 +1,5 @@
 function getTake(req, res) {
-	res.render('take');
+	res.render('take'); 	// , {}
 }
 
 // function postTake(req, res) {
