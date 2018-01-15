@@ -49,7 +49,7 @@ function initMap() {
 		// - Form in popup window to take ticket time
 		if (infoWindow) {infoWindow.close()}
 		infoWindow = new google.maps.InfoWindow({
-			content: '<div class="container-fluid"><form action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="endTime"></div><button id="leaveButton" class="btn btn-lg col-10 btn-primary">Submit</button></form><button id="cancelButton" class="btn btn-lg col-8 btn-danger">Remove</button></div>'
+			content: '<div class="container-fluid"><form action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="endTime" required></div><button id="leaveButton" class="btn btn-lg col-10 btn-primary">Submit</button></form><button id="cancelButton" class="btn btn-lg col-8 btn-danger">Remove</button></div>'
 		});
 		infoWindow.open(map, marker);
 	
@@ -91,7 +91,7 @@ function cancelTicket(marker) {
 	setTimeout(function() {
 		$('#cancelButton').click(function() {
 			if (infoWindow) { infoWindow.close() }
-			clearMarkers();
+			marker.setMap(null);
 		});
 	}, 500);	
 }
