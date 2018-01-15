@@ -1,5 +1,6 @@
 let infoWindow, pos, map;
 let uniqueId = 0;
+let markerList = [];
 
 function initMap() {
 	// - Map options
@@ -26,7 +27,6 @@ function initMap() {
 		{ coords: {lat:39.7536, lng:-105}     },
 		{ coords: {lat:39.7535, lng:-104.999} }
 	];
-	let markersList = [];
 
 	// Loop through markers
 	for(let i = 0; i < markers.length; i++){
@@ -48,7 +48,7 @@ function initMap() {
 				scaledSize: new google.maps.Size(100, 100)
 			}
 		});
-		markersList.push(marker);
+		markerList.push(marker);
 
 		if (infoWindow) { infoWindow.close() }
 		infoWindow = new google.maps.InfoWindow({content:"<button id='claimButton' class='btn btn-success'>CLAIM</button>"});
@@ -58,9 +58,9 @@ function initMap() {
 			$('#claimButton').click(function() {
 				$('#claimButton').off();
 				marker.setMap(null);
-				markersList.splice(markersList.indexOf(marker), 1);
-				console.log('Deleted #' + marker.id + ', markersList.length = ' + markersList.length);
-				console.log(markersList);
+				markerList.splice(markerList.indexOf(marker), 1);
+				console.log('Deleted #' + marker.id + ', markerList.length = ' + markerList.length);
+				console.log(markerList);
 			});
 		});
 	}
@@ -80,7 +80,7 @@ function centerMap(currentPos) {
 				map.setCenter(pos);
 				setTimeout(function() {centerMap()}, 15000);
 			}, function() {
-				console.log('location failure');
+				console.log('location denied');
 			});
 		} else {	// - Browser doesn't support Geolocation
 			console.log('your browser sucks');

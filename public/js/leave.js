@@ -79,7 +79,7 @@ function centerMap(currentPos) {
 				map.setCenter(pos);
 				setTimeout(function() {centerMap()}, 15000);
 			}, function() {
-				console.log('location failure');
+				console.log('location denied');
 			});
 		} else {	// - Browser doesn't support Geolocation
 			console.log('your browser sucks');
@@ -91,7 +91,7 @@ function cancelTicket(marker) {
 	setTimeout(function() {
 		$('#cancelButton').click(function() {
 			if (infoWindow) { infoWindow.close() }
-			marker.setMap(null);
+			clearMarkers();
 		});
 	}, 500);	
 }
