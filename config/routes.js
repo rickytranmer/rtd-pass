@@ -9,6 +9,7 @@ router.get('/', staticsController.home);
 router.get('/take', ticketsController.getTake);
 
 router.get('/leave', ticketsController.getLeave);
+router.post('/leave', ticketsController.postLeave);
 
 router.get('/signup', usersController.getSignup);
 router.post('/signup', usersController.postSignup);

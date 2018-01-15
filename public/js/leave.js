@@ -43,13 +43,13 @@ function initMap() {
 		marker.addListener('click', function() {
 			if (infoWindow) { infoWindow.close() }
 			infoWindow.open(map, marker);
-			cancelTicket(marker);
+			formButtons(marker);
 		});
 
 		// - Form in popup window to take ticket time
 		if (infoWindow) {infoWindow.close()}
 		infoWindow = new google.maps.InfoWindow({
-			content: '<div class="container-fluid"><form action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="endTime" required></div><button id="leaveButton" class="btn btn-lg col-10 btn-primary">Submit</button></form><button id="cancelButton" class="btn btn-lg col-8 btn-danger">Remove</button></div>'
+			content: '<div class="container-fluid"><form id="ticket-form" action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="expireTime" required></div><div class="form-group"><button id="leaveButton" class="btn btn-lg col-10 btn-primary">Submit</button></div></form><button id="cancelButton" class="btn btn-lg col-8 btn-danger">Remove</button></div>'
 		});
 		infoWindow.open(map, marker);
 	
@@ -61,7 +61,7 @@ function initMap() {
 		});
 
 		// - Delayed click listener for removing ticket
-		cancelTicket(marker);
+		formButtons(marker);
 	}
 }
 
@@ -81,14 +81,24 @@ function centerMap(currentPos) {
 			}, function() {
 				console.log('location denied');
 			});
-		} else {	// - Browser doesn't support Geolocation
+		} else {  // - Browser doesn't support Geolocation
 			console.log('your browser sucks');
 		}
 	}
 }
 
-function cancelTicket(marker) {
+function formButtons(marker) {
 	setTimeout(function() {
+		$('#ticket-form').on('submit', function(event) {
+			event.preventDefault();
+			let formData = $(this).serialize();
+			formData += "&lat=" + marker.position.lat() + "&lng=" + marker.position.lng();
+			console.log(formData);
+
+			$.post('/leave', formData, function(doc) {
+				console.log(doc);
+			});
+		});
 		$('#cancelButton').click(function() {
 			if (infoWindow) { infoWindow.close() }
 			marker.setMap(null);
