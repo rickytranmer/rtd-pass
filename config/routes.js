@@ -14,7 +14,6 @@ router.get('/', staticsController.home);
 
 router.route('/take')
 	.get(authenticatedUser, ticketsController.getTake);
-	//.post(ticketsController.postTake);
 
 router.route('/leave')
 	.get(authenticatedUser, ticketsController.getLeave)
@@ -32,8 +31,9 @@ router.get('/logout', usersController.getLogout);
 
 router.get('/take/all', ticketsController.indexTicket);
 
-// router.route('/take/:id')
-// 	.get(ticketsController.showTicket)
-// 	.put(ticketsController.putTicket);
+router.route('/take/:id')
+	.get(ticketsController.showTicket)
+	.delete(authenticatedUser, ticketsController.deleteTicket);
+// 	.put(ticketsController.putTicket)
 
 module.exports = router;

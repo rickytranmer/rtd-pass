@@ -4,12 +4,6 @@ function getTake(req, res) {
 	res.render('take'); 	// , {}
 }
 
-// function postTake(req, res, next) {
-
-
-
-// }
-
 function getLeave(req, res, next) {
 	res.render('leave');
 }
@@ -45,16 +39,44 @@ function indexTicket(req, res, next) {
 	db.Ticket.find({}, function(err, docs) {
 		if (err) { console.log('indexTicket error') }
 		db.Ticket.find({ _id: res.locals.currentUser._id }, function(err, myDocs) {
-			
+
 		});
 		res.json(docs);
 	});
 }
 
+function deleteTicket(req, res, next) {
+	db.Ticket.findOneAndRemove({_id: req.params.id}, function(err, doc) {
+		if (err) { console.log('remove error') }
+		db.User.findOneAndUpdate(
+		  { _id: res.locals.currentUser._id }, 
+		  { $inc: {ticketsTaken: 1} }, { new: true }, 
+		  function(err, response) {
+	  		err ? console.log(err) : console.log('ticket taken');
+		  } );
+		res.json(doc);
+	});
+}
+
+function showTicket(req, res, next) {
+	db.Ticket.findOne({_id: req.params.id}, function(err, doc) {
+		err ? console.log(err) : res.json(doc);
+	});
+}
+
+// function putTicket(req, res, next) {
+
+
+
+// }
+
 module.exports = {
 	getTake: 		getTake,
-	// postTake: 	postTake,
 	getLeave: 		getLeave,
 	postLeave: 		postLeave,
-	indexTicket: 	indexTicket
+	indexTicket: 	indexTicket,
+	deleteTicket: 	deleteTicket,
+	showTicket: 	showTicket
+	// putTicket: 		putTicket
+
 }
