@@ -32,13 +32,12 @@ function initMap() {
 			}
 		});
 		if (props.leftBy === $('#userDisplay').text()) {
-			marker.setIcon('images/my-ticket.png')
+			marker.setIcon('images/my-ticket.png');
 		} else {
 
 		}
 		markerList.push(marker);
 
-		if (infoWindow) { infoWindow.close() }
 		infoWindow = new google.maps.InfoWindow({content:"<button id='claimButton' class='btn btn-success'>CLAIM</button>"});
 		
 		marker.addListener('click', function() {
