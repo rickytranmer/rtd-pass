@@ -95,21 +95,20 @@ function formButtons(marker) {
 			formData += "&lat=" + marker.position.lat() + "&lng=" + marker.position.lng();
 			console.log(formData);
 
-			$.post('/leave', formData, function() {
-				$(location).attr('href', '/take');
+			$.post('/leave', formData, function(doc) {
+				setTimeout(function() {
+					$(location).attr('href', '/take');
+				}, 250);
 			});
 		});
 		$('#cancelButton').click(function() {
 			if (infoWindow) { infoWindow.close() }
 			marker.setMap(null);
 		});
-	}, 500);	
+	}, 250);	
 }
 
 $(function() {
 	console.log('leave loaded');
 	$('#leaveBtn').toggleClass('btn-outline-primary').css('letter-spacing', '6px').css('font-size', '4rem');
-	$('.navbar-text').click(function() {
-		$(location).attr('href', '/');
-	});
 });

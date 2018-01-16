@@ -16,7 +16,9 @@ $(function() {
 	$('#leaveBtn').click(function() {
 		$(location).attr('href', '/leave');
 	});
-
+	$('.navbar-text').click(function() {
+		$(location).attr('href', '/');
+	});
 });
 
 function convertTime(millis) {

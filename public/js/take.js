@@ -21,18 +21,15 @@ function initMap() {
 	console.log(map);
 	centerMap();
 
-	//TODO - Placeholder for DB
-	let markers = [
-		{ coords: {lat:39.7534, lng:-105.001} },
-		{ coords: {lat:39.7536, lng:-105}     },
-		{ coords: {lat:39.7535, lng:-104.999} }
-	];
-
-	// Loop through markers
-	for(let i = 0; i < markers.length; i++){
-		// Call add marker function
-		addMarker(markers[i]);
-	}
+	// - Placeholder for DB
+	// let markers = [
+	// 	{ coords: {lat:39.7534, lng:-105.001} },
+	// 	{ coords: {lat:39.7536, lng:-105}     },
+	// 	{ coords: {lat:39.7535, lng:-104.999} }
+	// ];
+	// for(let i = 0; i < markers.length; i++){
+	// 	addMarker(markers[i]);
+	// }
 
 	// - Add Marker
 	function addMarker(props){
@@ -64,6 +61,13 @@ function initMap() {
 			});
 		});
 	}
+
+	$.get('/take/all', function(tickets) {
+		for(let i = 0; i < tickets.length; i++){
+			// Call add marker function
+			addMarker(tickets[i]);
+		}
+	});
 }
 
 // - Center map if location is available
@@ -91,7 +95,6 @@ function centerMap(currentPos) {
 $(function() {
 	console.log('take loaded');
 	$('#takeBtn').toggleClass('btn-outline-primary').css('letter-spacing', '6px').css('font-size', '4rem');
-	$('h1').click(function() {
-		$(location).attr('href', '/');
-	});
 });
+
+

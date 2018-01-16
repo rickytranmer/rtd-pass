@@ -7,18 +7,18 @@ const staticsController = require('../controllers/statics');
 
 function authenticatedUser(req, res, next) {
 	if (req.isAuthenticated()) { return next() }
-	res.render('login', {message: ''});
+	res.redirect('/login');
 }
 
 router.get('/', staticsController.home);
 
 router.route('/take')
-	.get(ticketsController.getTake);
+	.get(authenticatedUser, ticketsController.getTake);
 	//.post(ticketsController.postTake);
 
 router.route('/leave')
-	.get(ticketsController.getLeave)
-	.post(authenticatedUser, ticketsController.postLeave);
+	.get(authenticatedUser, ticketsController.getLeave)
+	.post(ticketsController.postLeave);
 
 router.route('/signup')
 	.get(usersController.getSignup)
@@ -29,5 +29,11 @@ router.route('/login')
 	.post(usersController.postLogin);
 
 router.get('/logout', usersController.getLogout);
+
+router.get('/take/all', ticketsController.indexTicket);
+
+// router.route('/take/all/:id')
+// 	.get(ticketsController.showTicket)
+// 	.put(ticketsController.putTicket);
 
 module.exports = router;

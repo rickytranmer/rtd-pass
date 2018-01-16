@@ -4,34 +4,52 @@ function getTake(req, res) {
 	res.render('take'); 	// , {}
 }
 
-// function postTake(req, res) {
+// function postTake(req, res, next) {
 // 	res.render('take');
 // }
 
-function getLeave(req, res) {
+function getLeave(req, res, next) {
 	res.render('leave');
 }
 
-function postLeave(req, res) {
+function postLeave(req, res, next) {
 	let newTicket = {
-		leftBy: 	'rwt@rwt.rwt', // CHANGE ME
+		leftBy: 	res.locals.currentUser.email,
 		expireTime: req.body.expireTime,
 		coords: {
 			lat: 	req.body.lat,
 			lng: 	req.body.lng
 		}
 	};
+	res.locals.currentUser.ticketsLeft++;
 	console.log(' - 	newTicket');
 	console.log(newTicket);
+	console.log(res.locals.currentUser);
 
 	db.Ticket.create(newTicket, function(err, doc) {
-		err ? console.log('ticket error') : res.render('take');
+		if (err) { console.log('ticket error') }
+		
+		db.User.findOneAndUpdate({ _id: res.locals.currentUser._id }, 
+		  { $inc: {
+		  	ticketsLeft: 1
+		  } }, {new:true}, function(err, response) {
+		  	err ? console.log(err) : console.log(response);
+		  });
+	
+		res.render('take');
+	});
+}
+
+function indexTicket(req, res, next) {
+	db.Ticket.find({}, function(err, docs) {
+		err ? console.log('indexTicket error') : res.json(docs);
 	});
 }
 
 module.exports = {
-	getTake: 	getTake,
+	getTake: 		getTake,
 	// postTake: 	postTake,
-	getLeave: 	getLeave,
-	postLeave: 	postLeave
+	getLeave: 		getLeave,
+	postLeave: 		postLeave,
+	indexTicket: 	indexTicket
 }
