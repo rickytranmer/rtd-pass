@@ -1,5 +1,4 @@
 let infoWindow, pos, map;
-let uniqueId = 0;
 let markerList = [];
 
 function initMap() {
@@ -23,18 +22,20 @@ function initMap() {
 
 	// - Add Marker
 	function addMarker(props){
-		props.id = uniqueId;
-		uniqueId++;
-
 		let marker = new google.maps.Marker({
 			position: props.coords,
-			id: props.id,
+			id: props._id,
 			map: map,
     		icon: {
-				url: "images/ticket.png",
+				url: 'images/ticket.png',
 				scaledSize: new google.maps.Size(100, 100)
 			}
 		});
+		if (props.leftBy === $('#userDisplay').text()) {
+			marker.setIcon('images/my-ticket.png')
+		} else {
+
+		}
 		markerList.push(marker);
 
 		if (infoWindow) { infoWindow.close() }
@@ -42,11 +43,11 @@ function initMap() {
 		
 		marker.addListener('click', function() {
 			infoWindow.open(map, marker);
+			$('#claimButton').off();
 			$('#claimButton').click(function() {
-				$('#claimButton').off();
 				marker.setMap(null);
 				markerList.splice(markerList.indexOf(marker), 1);
-				console.log('Deleted #' + marker.id + ', markerList.length = ' + markerList.length);
+				console.log('Deleted #' + marker.id + ', markerList: ');
 				console.log(markerList);
 			});
 		});

@@ -3,7 +3,7 @@
 	<nav class="navbar container-fluid">
 		<div class="navbar-text bg-primary container-fluid col-6 row">
 			<% if (currentUser) { %>
-				<h3 class="col-12"><%= currentUser.email %></h3>
+				<h3 class="col-12" id="userDisplay"><%= currentUser.email %></h3>
 			<% } else { %>
 				<h1 class="col-12">Ricky's RTD Pass</h1>
 			<% } %>

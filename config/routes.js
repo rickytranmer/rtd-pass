@@ -32,7 +32,7 @@ router.get('/logout', usersController.getLogout);
 
 router.get('/take/all', ticketsController.indexTicket);
 
-// router.route('/take/all/:id')
+// router.route('/take/:id')
 // 	.get(ticketsController.showTicket)
 // 	.put(ticketsController.putTicket);
 

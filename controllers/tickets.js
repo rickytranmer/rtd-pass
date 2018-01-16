@@ -5,7 +5,9 @@ function getTake(req, res) {
 }
 
 // function postTake(req, res, next) {
-// 	res.render('take');
+
+
+
 // }
 
 function getLeave(req, res, next) {
@@ -41,7 +43,11 @@ function postLeave(req, res, next) {
 
 function indexTicket(req, res, next) {
 	db.Ticket.find({}, function(err, docs) {
-		err ? console.log('indexTicket error') : res.json(docs);
+		if (err) { console.log('indexTicket error') }
+		db.Ticket.find({ _id: res.locals.currentUser._id }, function(err, myDocs) {
+			
+		});
+		res.json(docs);
 	});
 }
 

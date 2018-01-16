@@ -1,5 +1,4 @@
 let infoWindow, pos, map;
-let uniqueId = 0;
 
 function initMap() {
 	// - Map options
@@ -28,12 +27,8 @@ function initMap() {
 
 	// - Add Marker
 	function addMarker(props){
-		props.id = uniqueId;
-		uniqueId++;
-
 		let marker = new google.maps.Marker({
 			position: props.coords,
-			id: props.id,
 			map: map,
     		icon: {
 				url: "images/new-ticket.png",
