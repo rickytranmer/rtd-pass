@@ -24,18 +24,17 @@ function postLeave(req, res, next) {
 	res.locals.currentUser.ticketsLeft++;
 	console.log(' - 	newTicket');
 	console.log(newTicket);
-	console.log(res.locals.currentUser);
 
 	db.Ticket.create(newTicket, function(err, doc) {
 		if (err) { console.log('ticket error') }
 		
-		db.User.findOneAndUpdate({ _id: res.locals.currentUser._id }, 
-		  { $inc: {
-		  	ticketsLeft: 1
-		  } }, {new:true}, function(err, response) {
-		  	err ? console.log(err) : console.log(response);
-		  });
-	
+		db.User.findOneAndUpdate(
+		  { _id: res.locals.currentUser._id }, 
+		  { $inc: {ticketsLeft: 1} }, { new: true }, 
+		  function(err, response) {
+	  		err ? console.log(err) : console.log('ticket saved');
+		  } );
+
 		res.render('take');
 	});
 }

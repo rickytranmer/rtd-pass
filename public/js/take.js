@@ -21,16 +21,6 @@ function initMap() {
 	console.log(map);
 	centerMap();
 
-	// - Placeholder for DB
-	// let markers = [
-	// 	{ coords: {lat:39.7534, lng:-105.001} },
-	// 	{ coords: {lat:39.7536, lng:-105}     },
-	// 	{ coords: {lat:39.7535, lng:-104.999} }
-	// ];
-	// for(let i = 0; i < markers.length; i++){
-	// 	addMarker(markers[i]);
-	// }
-
 	// - Add Marker
 	function addMarker(props){
 		props.id = uniqueId;

@@ -4,7 +4,7 @@ body {
 nav {
 	height: 10vh;
 	width: 100%;
-	color: gold;
+	color: #FFDC00;
 	font-style: italic;
 }
 h1 {
@@ -12,8 +12,8 @@ h1 {
 	margin: 0 5vw;
 }
 h2 {
-	font-size: 5rem;
-	padding: 3vh 0vw;
+	font-size: 4rem;
+	padding: 2vh 0vw;
 	margin: 2vh 0vw;
 }
 h3 {
@@ -46,6 +46,10 @@ input {
 	padding: 0;
 	text-align: center;
 	border: 2px solid white;
+	background-color: #0074D9;
+}
+.btn-outline-primary {
+	background-color: white;
 }
 .btn-primary.btn-left, .btn-primary.btn-right {
 	transition: letter-spacing .5s ease-in, font-size .5s ease-in;
@@ -79,8 +83,14 @@ input {
 	margin: 5vh 0;
 }
 .btn-outline-primary:not([disabled]):not(.disabled):active {
-	color: #007bff;
+	color: #0074D9;
 	background-color: transparent;
 	box-shadow: 0 0 0 0;
 	border: none;
+}
+.jumbotron {
+	background-color: #FFDC00;
+	border-radius: 20px;
+	max-height: 75vh;
+	min-height: 65vh;
 }

@@ -4,7 +4,6 @@ $(function() {
 	$('#logInBtn').css('transition-property', 'none');
 	$('#takeBtn').css('transition-property', 'none');
 	$('#leaveBtn').css('transition-property', 'none');
-	$('#map').height('78vh');
 	$('#map').click(function() {
 		$(location).attr('href', '/take');
 	});
