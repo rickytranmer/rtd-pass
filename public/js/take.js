@@ -26,29 +26,34 @@ function initMap() {
 			position: props.coords,
 			id: props._id,
 			map: map,
+			leftBy: props.leftBy,
     		icon: {
 				url: 'images/ticket.png',
 				scaledSize: new google.maps.Size(100, 100)
 			}
 		});
-		if (props.leftBy === $('#userDisplay').text()) {
-			marker.setIcon('images/my-ticket.png');
-		} else {
-
-		}
+		if (marker.leftBy === $('#userDisplay').text()) { marker.setIcon('images/my-ticket.png') }
 		markerList.push(marker);
 
-		infoWindow = new google.maps.InfoWindow({content:"<button id='claimButton' class='btn btn-success'>CLAIM</button>"});
-		
 		marker.addListener('click', function() {
+			if (infoWindow) { infoWindow.close() }
+			if (this.leftBy === $('#userDisplay').text()) {
+				infoWindow = new google.maps.InfoWindow({content:"<button id='editButton' class='btn btn-success'>EDIT</button>"});
+				$('#editButton').off();
+				$('#editButton').click(function() {
+					//TODO - put route
+				});
+			} else {
+				infoWindow = new google.maps.InfoWindow({content:"<button id='claimButton' class='btn btn-primary'>CLAIM</button>"});
+				$('#claimButton').off();
+				$('#claimButton').click(function() {
+					marker.setMap(null);
+					markerList.splice(markerList.indexOf(marker), 1);
+					console.log('Deleted #' + marker.id + ', markerList: ');
+					console.log(markerList);
+				});
+			}
 			infoWindow.open(map, marker);
-			$('#claimButton').off();
-			$('#claimButton').click(function() {
-				marker.setMap(null);
-				markerList.splice(markerList.indexOf(marker), 1);
-				console.log('Deleted #' + marker.id + ', markerList: ');
-				console.log(markerList);
-			});
 		});
 	}
 
