@@ -13,8 +13,6 @@ function getLeave(req, res) {
 }
 
 function postLeave(req, res) {
-	console.log(' - 	req.body');
-	console.log(req.body);
 	let newTicket = {
 		leftBy: 	'rwt@rwt.rwt', // CHANGE ME
 		expireTime: req.body.expireTime,

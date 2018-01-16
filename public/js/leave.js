@@ -49,7 +49,7 @@ function initMap() {
 		// - Form in popup window to take ticket time
 		if (infoWindow) {infoWindow.close()}
 		infoWindow = new google.maps.InfoWindow({
-			content: '<div class="container-fluid"><form id="ticket-form" action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="expireTime" required></div><div class="form-group"><button id="leaveButton" class="btn btn-lg col-10 btn-primary">Submit</button></div></form><button id="cancelButton" class="btn btn-lg col-8 btn-danger">Remove</button></div>'
+			content: '<div class="container-fluid"><form id="ticket-form" action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="expireTime" placeholder="Enter Expire Time" required></div><div class="form-group"><button id="leaveButton" class="btn btn-lg col-10 btn-primary">Submit</button></div></form><button id="cancelButton" class="btn btn-lg col-8 btn-danger">Remove</button></div>'
 		});
 		infoWindow.open(map, marker);
 	
@@ -95,8 +95,8 @@ function formButtons(marker) {
 			formData += "&lat=" + marker.position.lat() + "&lng=" + marker.position.lng();
 			console.log(formData);
 
-			$.post('/leave', formData, function(doc) {
-				console.log(doc);
+			$.post('/leave', formData, function() {
+				$(location).attr('href', '/take');
 			});
 		});
 		$('#cancelButton').click(function() {
@@ -109,7 +109,7 @@ function formButtons(marker) {
 $(function() {
 	console.log('leave loaded');
 	$('#leaveBtn').toggleClass('btn-outline-primary').css('letter-spacing', '6px').css('font-size', '4rem');
-	$('h1').click(function() {
+	$('.navbar-text').click(function() {
 		$(location).attr('href', '/');
 	});
 });
