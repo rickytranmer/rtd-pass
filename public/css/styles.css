@@ -36,7 +36,9 @@ input {
 	height: 80vh;
 	width: 100%;
 	text-align: center;
-	background: linear-gradient(to bottom right, white, #DFDFDF);
+	background: linear-gradient(to bottom right, rgba(14, 172, 32, .7), rgba(46, 204, 64, 1)); 
+	/* #2ECC40 */
+	/* #0EAC20 */
 }
 
 .btn-primary {
@@ -81,7 +83,8 @@ input {
 	margin: 0;
 	height: 10vh;
 	border-bottom: 1px solid white;
-	background: linear-gradient(to bottom right, #007BFF, #108BEF);
+	background: linear-gradient(to bottom right, rgba(0, 91, 223, .7), rgba(0, 123, 255, 1)); 
+	/* #007BFF #005BDF */
 }
 .navbar-text:hover {
 	color: white;
@@ -97,7 +100,7 @@ input {
 	border: none;
 }
 .jumbotron {
-	background: linear-gradient(to bottom right, #FFDC00, #DFBC20);
+	background: linear-gradient(to bottom right, rgba(223, 188, 0, .5), rgba(255, 220, 0, 1)); /* #FFDC00 #DFBC00 */
 	background-color: #FFDC00;
 	border-radius: 40px;
 	max-height: 75vh;
