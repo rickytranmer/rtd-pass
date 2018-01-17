@@ -72,7 +72,7 @@ function centerMap(currentPos) {
 					lng: position.coords.longitude
 				};
 				map.setCenter(pos);
-				setTimeout(function() {centerMap()}, 15000);
+				setTimeout(function() {centerMap()}, 30000);
 			}, function() {
 				console.log('location denied');
 			});

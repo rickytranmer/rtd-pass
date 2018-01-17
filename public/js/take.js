@@ -99,7 +99,7 @@ function centerMap(currentPos) {
 					lng: position.coords.longitude
 				};
 				map.setCenter(pos);
-				setTimeout(function() {centerMap()}, 15000);
+				setTimeout(function() {centerMap()}, 30000);
 			}, function() {
 				console.log('location denied');
 			});
@@ -123,10 +123,15 @@ function deleteTicketSuccess(json) {
 			scaledSize: new google.maps.Size(100, 100)
 		}
 	});
-	if (infoWindow) { infoWindow.close() }
-	if (editWindow) { editWindow.close() }
-	infoWindow = new google.maps.InfoWindow({content:"<button class='btn btn-success'>Success!</button>"});
-	infoWindow.open(map, marker);
+	
+	// - Flash SUCCESS
+	$('#takeBtn').text('SUCCESS').css('color', '#2ECC40').css('letter-spacing', '3px').css('font-size', '2rem');
+	setTimeout(function() {
+		$('#takeBtn').css('letter-spacing', '6px').css('font-size', '4rem');
+		setTimeout(function() {
+			$('#takeBtn').text('TAKE').css('color', '#007BFF');
+		},750);
+	},500);
 }
 
 function deleteTicketError(json) {

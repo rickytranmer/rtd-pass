@@ -20,7 +20,7 @@ h4 {
 	margin: 0 auto;
 }
 input {
-	height: 8vh;
+	height: 10vh;
 	font-size: 24px;
 }
 
@@ -36,7 +36,7 @@ input {
 	height: 80vh;
 	width: 100%;
 	text-align: center;
-	background: linear-gradient(to bottom right, white, #CFCFCF);
+	background: linear-gradient(to bottom right, white, #DFDFDF);
 }
 
 .btn-primary {
@@ -97,7 +97,7 @@ input {
 	border: none;
 }
 .jumbotron {
-	background: linear-gradient(to bottom right, #FFDC00, #CFAC20);
+	background: linear-gradient(to bottom right, #FFDC00, #DFBC20);
 	background-color: #FFDC00;
 	border-radius: 40px;
 	max-height: 75vh;
@@ -105,4 +105,7 @@ input {
 }
 .ticket-info {
 	margin: 4vh auto;
+}
+.succesTicket {
+	margin: 10vh auto;
 }
