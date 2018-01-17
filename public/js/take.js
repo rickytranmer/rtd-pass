@@ -41,7 +41,7 @@ function initMap() {
 			if (editWindow) { editWindow.close() }
 
 			if (this.leftBy === $('#userDisplay').text()) {
-				editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h2 class='col-12'>" + marker.expireTime + "</h2><br><br><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
+				editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
 				// - Click listener for editButton
 				$('#editButton').off();
 				setTimeout(function() {
@@ -52,7 +52,7 @@ function initMap() {
 				}, 250);
 				editWindow.open(map, marker);
 			} else {
-				infoWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h2 class='col-12'>" + marker.expireTime + "</h2><br><br><button id='claimButton' data-id='" + this.id + "' class='btn btn-primary'>CLAIM</button>"});
+				infoWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='claimButton' data-id='" + this.id + "' class='btn btn-primary'>CLAIM</button>"});
 				// - Click listener for claimButton
 				$('#claimButton').off();
 				setTimeout(function() {

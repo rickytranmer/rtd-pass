@@ -20,7 +20,7 @@ h4 {
 	margin: 0 auto;
 }
 input {
-	height: 10vh;
+	height: 8vh;
 	font-size: 24px;
 }
 
@@ -67,7 +67,7 @@ input {
 	margin-right:  -.5px;
 }
 .gm-style-iw {
-	height: 30vh;
+	height: 35vh;
 	width: 100%;
 }
 .row {
@@ -102,4 +102,7 @@ input {
 	border-radius: 40px;
 	max-height: 75vh;
 	min-height: 65vh;
+}
+.ticket-info {
+	margin: 4vh auto;
 }
