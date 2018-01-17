@@ -1,3 +1,7 @@
+input {
+	text-align: center;
+}
+
 #cancelButton {
 	font-size: 2rem;
 	margin-top: 2vh;
@@ -10,10 +14,6 @@
 	letter-spacing: 5px;
 }
 
-.gm-style-iw {
-	height: 30vh;
-	width: 100%;
-}
 .form-control {
 	margin: 3vh auto;
 }
