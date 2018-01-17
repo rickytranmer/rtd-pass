@@ -1,11 +1,11 @@
 </head>
 <body>
 	<nav class="navbar container-fluid">
-		<div class="navbar-text bg-primary container-fluid col-6 row">
+		<div class="navbar-text container-fluid col-6 row">
 			<% if (currentUser) { %>
-				<h3 class="col-12" id="userDisplay"><%= currentUser.email %></h3>
+				<h4 class="col-12" id="userDisplay"><%= currentUser.email %></h4>
 			<% } else { %>
-				<h1 class="col-12">Ricky's RTD Pass</h1>
+				<h3 class="col-12">Ricky's RTD Pass</h3>
 			<% } %>
 		</div>
 		<div class="text-xs-center col-6 row">
