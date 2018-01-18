@@ -20,7 +20,6 @@ $(function() {
 		$(location).attr('href', '/');
 	});
 
-	ga('send', 'pageview', location.pathname);
 });
 
 function convertTime(millis) {
