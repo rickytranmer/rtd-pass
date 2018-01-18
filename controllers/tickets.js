@@ -64,11 +64,16 @@ function showTicket(req, res, next) {
 	});
 }
 
-// function putTicket(req, res, next) {
+function putTicket(req, res, next) {
+	let updateTicket = {
+		expireTime: req.body.expireTime
+	};
+	db.Ticket.findOneAndUpdate({_id:req.params.id}, updateTicket, function(err, doc) {
+		err ? console.log(err) : console.log(doc);
+		res.json(doc);
+	});
 
-
-
-// }
+}
 
 module.exports = {
 	getTake: 		getTake,
@@ -76,7 +81,7 @@ module.exports = {
 	postLeave: 		postLeave,
 	indexTicket: 	indexTicket,
 	deleteTicket: 	deleteTicket,
-	showTicket: 	showTicket
-	// putTicket: 		putTicket
+	showTicket: 	showTicket,
+	putTicket: 		putTicket
 
 }

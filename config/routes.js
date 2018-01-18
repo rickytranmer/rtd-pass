@@ -34,6 +34,8 @@ router.get('/take/all', ticketsController.indexTicket);
 router.route('/take/:id')
 	.get(ticketsController.showTicket)
 	.delete(authenticatedUser, ticketsController.deleteTicket);
-// 	.put(ticketsController.putTicket)
+
+router.route('/take/:id/edit')
+	.put(authenticatedUser, ticketsController.putTicket);
 
 module.exports = router;

@@ -39,15 +39,48 @@ function initMap() {
 		marker.addListener('click', function() {
 			if (infoWindow) { infoWindow.close() }
 			if (editWindow) { editWindow.close() }
+			pos = {
+				lat: marker.position.lat(),
+				lng: marker.position.lng()
+			};
+			centerMap(pos);
 
 			if (this.leftBy === $('#userDisplay').text()) {
-				editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
+				editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 id=claimInfo class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
 				// - Click listener for editButton
 				$('#editButton').off();
 				setTimeout(function() {
 					$('#editButton').click(function() {
-						console.log('edit clicked');
-						//TODO - put route
+						console.log($('#editButton').text())
+						if ($('#editButton').text() === 'EDIT') {
+							console.log('edit clicked');
+							$('#claimInfo').html("<textarea id='claimInfo' class='col-12 ticket-info' autofocus>"+marker.expireTime+"</textarea>");
+							$('#editButton').text('SAVE');
+						} else {
+							console.log(marker);
+							let updateMarker = [
+								{
+									name: "_id",
+									value: marker.id
+								},
+								{
+									name: "leftBy",
+									value: marker.leftBy
+								},
+								{
+									name: "expireTime",
+									value: $('textarea').val()
+								}
+							];
+							console.log(updateMarker);
+							$.ajax({
+								method: 'PUT',
+								url: '/take/' + marker.id + '/edit',
+								data: updateMarker,
+								success: updateTicketSuccess,
+								error: updateTicketError
+							});
+						}
 					});
 				}, 250);
 				editWindow.open(map, marker);
@@ -62,10 +95,6 @@ function initMap() {
 						console.log('Deleted #' + marker.id + ', markerList: ');
 						console.log(markerList);
 						console.log(marker);
-						pos = {
-							lat: marker.position.lat(),
-							lng: marker.position.lng()
-						};
 						$.ajax({
 							method: 'DELETE',
 							url: '/take/' + marker.id,
@@ -135,6 +164,36 @@ function deleteTicketSuccess(json) {
 }
 
 function deleteTicketError(json) {
+	console.log('ajax error');
+	if (json) { console.log(json) }
+}
+
+function updateTicketSuccess(json) {
+	// - Delete all markers
+	for (let i = markerList.length - 1; i >= 0; i--) {
+		markerList[i].setMap(null);
+	}
+	// - New ticket icon at update ticket's position
+	let marker = new google.maps.Marker({
+		position: pos,
+		map: map,
+		icon: {
+			url: 'images/my-ticket.png',
+			scaledSize: new google.maps.Size(100, 100)
+		}
+	});
+	
+	// - Flash SUCCESS
+	$('#takeBtn').text('SUCCESS').css('color', '#2ECC40').css('letter-spacing', '3px').css('font-size', '2rem');
+	setTimeout(function() {
+		$('#takeBtn').css('letter-spacing', '6px').css('font-size', '4rem');
+		setTimeout(function() {
+			$(location).attr('href', '/take');
+		},750);
+	},500);
+}
+
+function updateTicketError(json) {
 	console.log('ajax error');
 	if (json) { console.log(json) }
 }

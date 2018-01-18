@@ -9,29 +9,46 @@ nav {
 }
 h2 {
 	font-size: 4.5rem;
-	padding: 2vh 0vw;
-	margin: 2vh 0vw;
+	padding: 1vh 0vw;
+	margin: 1vh 0vw;
 }
 h3 {
 	font-size: 3rem;
 }
 h4 {
 	font-size: 2.25em;
-	margin: 0 auto;
+	margin: 1vh auto;
 }
 input {
 	height: 10vh;
 	font-size: 24px;
+	text-align: center;
+	margin: 1vh auto;
+}
+textarea {
+	height: 20vh;
+	text-align: center;
+	margin: 1vh auto;
 }
 
 #claimButton, #editButton, .btn-success, .gm-style-iw {
-	width: 16vw;
+	width: 15vw;
 	height: 8vh;
 	font-size: 2rem;
 	font-weight: 700;
 	font-family: 'Ubuntu', sans-serif;
+	text-align: center;
 }
-
+#editButton {
+	position: absolute;
+	bottom: 1vh;
+	left: 50%;
+	margin-left: -8vw;
+}
+#claimInfo {
+	margin: 1vh auto;
+	text-align: center;
+}
 #map {
 	height: 80vh;
 	width: 100%;
@@ -70,6 +87,7 @@ input {
 }
 .gm-style-iw {
 	height: 35vh;
+	min-width: 16vw;
 	width: 100%;
 }
 .row {
@@ -106,9 +124,9 @@ input {
 	max-height: 75vh;
 	min-height: 70vh;
 }
-.ticket-info {
+./*ticket-info {
 	margin: 4vh auto;
-}
+}*/
 .succesTicket {
 	margin: 10vh auto;
 }
@@ -125,4 +143,12 @@ input {
 	h4 {
 		font-size: 2rem;
 	}
+	textarea {
+		font-size: 2rem;
+	}
+	#claimButton, #editButton {
+		max-width: 10vw;
+		margin-left: : -8vh;
+	}
+
 }
