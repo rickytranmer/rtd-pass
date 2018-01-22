@@ -39,12 +39,6 @@ textarea {
 	font-family: 'Ubuntu', sans-serif;
 	text-align: center;
 }
-#editButton {
-	position: absolute;
-	bottom: 1vh;
-	left: 50%;
-	margin-left: -8vw;
-}
 #claimInfo {
 	margin: 1vh auto;
 	text-align: center;
@@ -148,7 +142,7 @@ textarea {
 	}
 	#claimButton, #editButton {
 		max-width: 10vw;
-		margin-left: : -8vh;
+		margin: 0 auto;
 	}
 
 }

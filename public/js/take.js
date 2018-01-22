@@ -46,7 +46,12 @@ function initMap() {
 			centerMap(pos);
 
 			if (this.leftBy === $('#userDisplay').text()) {
-				editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 id=claimInfo class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
+				if (marker.expireTime.length < 7) {
+					editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 id=claimInfo class='col-12 ticket-info make-longer'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
+				} else {
+					editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 id=claimInfo class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
+
+				}
 				// - Click listener for editButton
 				$('#editButton').off();
 				setTimeout(function() {
