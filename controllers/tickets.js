@@ -9,6 +9,7 @@ function getLeave(req, res, next) {
 }
 
 function postLeave(req, res, next) {
+	// - Combine user info and form data to make new ticket
 	let newTicket = {
 		leftBy: 	res.locals.currentUser.email,
 		expireTime: req.body.expireTime,
@@ -24,6 +25,7 @@ function postLeave(req, res, next) {
 	db.Ticket.create(newTicket, function(err, doc) {
 		if (err) { console.log('ticket error') }
 		
+		// - Update current user's number of tickets left
 		db.User.findOneAndUpdate(
 		  { _id: res.locals.currentUser._id }, 
 		  { $inc: {ticketsLeft: 1} }, { new: true }, 
@@ -38,9 +40,6 @@ function postLeave(req, res, next) {
 function indexTicket(req, res, next) {
 	db.Ticket.find({}, function(err, docs) {
 		if (err) { console.log('indexTicket error') }
-		db.Ticket.find({ _id: res.locals.currentUser._id }, function(err, myDocs) {
-
-		});
 		res.json(docs);
 	});
 }
@@ -48,6 +47,8 @@ function indexTicket(req, res, next) {
 function deleteTicket(req, res, next) {
 	db.Ticket.findOneAndRemove({_id: req.params.id}, function(err, doc) {
 		if (err) { console.log('remove error') }
+
+		// - Update current users's number of tickets taken
 		db.User.findOneAndUpdate(
 		  { _id: res.locals.currentUser._id }, 
 		  { $inc: {ticketsTaken: 1} }, { new: true }, 
@@ -59,6 +60,7 @@ function deleteTicket(req, res, next) {
 }
 
 function showTicket(req, res, next) {
+	// - Find one ticket by id, display json object
 	db.Ticket.findOne({_id: req.params.id}, function(err, doc) {
 		err ? console.log(err) : res.json(doc);
 	});

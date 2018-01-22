@@ -1,6 +1,7 @@
 $(function() {
 	console.log('nav.js');
 
+	// - Click listeners for links to other screens
 	$('#signUpBtn').click(function() {
 		$(location).attr('href', '/signup');
 	});
@@ -22,6 +23,8 @@ $(function() {
 
 });
 
+// - Future proofing in case I want to separate Expiration Time and Note
+// - This would allow for automatic ticket deletion on Take Ticket screen load
 function convertTime(millis) {
         let hours = Math.floor(millis / (1000 * 60 * 60) % 60);
         let minutes = Math.floor(millis / (1000 * 60) % 60);

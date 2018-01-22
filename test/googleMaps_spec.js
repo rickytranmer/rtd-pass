@@ -1,5 +1,5 @@
-var request = require('request');
-var expect = require('chai').expect;
+const request = require('request');
+const expect = require('chai').expect;
 
 describe('Maps API Call', function() {
 	it('to contain google.maps object', function(done) {
