@@ -1,6 +1,8 @@
-let infoWindow, editWindow, pos, map;
-let markerList = [];
-
+function initVars() {
+	let infoWindow, editWindow, map, pos;
+	mapVars = { infoWindow, map, pos, markerList: [] };
+	initMap();
+}
 function initMap() {
 	// - Map options
 	let options = {
@@ -16,8 +18,7 @@ function initMap() {
 	}
 
 	// - Create map
-	map = new google.maps.Map(document.getElementById('map'), options);
-	console.log(map);
+	mapVars.map = new google.maps.Map(document.getElementById('map'), options);
 	centerMap();
 
 	// - Add Marker
@@ -25,7 +26,7 @@ function initMap() {
 		let marker = new google.maps.Marker({
 			position: props.coords,
 			id: props._id,
-			map: map,
+			map: mapVars.map,
 			expireTime: props.expireTime,
 			leftBy: props.leftBy,
     		icon: {
@@ -34,22 +35,22 @@ function initMap() {
 			}
 		});
 		if (marker.leftBy === $('#userDisplay').text()) { marker.setIcon('images/my-ticket.png') }
-		markerList.push(marker);
+		mapVars.markerList.push(marker);
 
 		marker.addListener('click', function() {
-			if (infoWindow) { infoWindow.close() }
-			if (editWindow) { editWindow.close() }
-			pos = {
+			if (mapVars.infoWindow) { mapVars.infoWindow.close() }
+			if (mapVars.editWindow) { mapVars.editWindow.close() }
+			mapVars.pos = {
 				lat: marker.position.lat(),
 				lng: marker.position.lng()
 			};
-			centerMap(pos);
+			centerMap(mapVars.pos);
 
 			if (this.leftBy === $('#userDisplay').text()) {
 				if (marker.expireTime.length < 7) {
-					editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 id=claimInfo class='col-12 ticket-info make-longer'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
+					mapVars.editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 id=claimInfo class='col-12 ticket-info make-longer'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
 				} else {
-					editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 id=claimInfo class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
+					mapVars.editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 id=claimInfo class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
 
 				}
 				// - Click listener for editButton
@@ -88,17 +89,17 @@ function initMap() {
 						}
 					});
 				}, 250);
-				editWindow.open(map, marker);
+				mapVars.editWindow.open(mapVars.map, marker);
 			} else {
-				infoWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='claimButton' data-id='" + this.id + "' class='btn btn-primary'>CLAIM</button>"});
+				mapVars.infoWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='claimButton' data-id='" + this.id + "' class='btn btn-primary'>CLAIM</button>"});
 				// - Click listener for claimButton
 				$('#claimButton').off();
 				setTimeout(function() {
 					$('#claimButton').click(function() {
 						marker.setMap(null);
-						markerList.splice(markerList.indexOf(marker), 1);
+						mapVars.markerList.splice(mapVars.markerList.indexOf(marker), 1);
 						console.log('Deleted #' + marker.id + ', markerList: ');
-						console.log(markerList);
+						console.log(mapVars.markerList);
 						console.log(marker);
 						$.ajax({
 							method: 'DELETE',
@@ -108,7 +109,7 @@ function initMap() {
 						});
 					});
 				}, 250);
-				infoWindow.open(map, marker);
+				mapVars.infoWindow.open(mapVars.map, marker);
 			}
 		});
 	}
@@ -124,34 +125,34 @@ function initMap() {
 // - Center map if location is available
 function centerMap(currentPos) {
 	if (currentPos) {
-		map.setCenter(currentPos);
+		mapVars.map.setCenter(currentPos);
 	} else {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
-				pos = {
+				mapVars.pos = {
 					lat: position.coords.latitude,
 					lng: position.coords.longitude
 				};
-				map.setCenter(pos);
+				mapVars.map.setCenter(mapVars.pos);
 				setTimeout(function() {centerMap()}, 30000);
 			}, function() {
 				console.log('location denied');
 			});
 		} else {	// - Browser doesn't support Geolocation
-			console.log('your browser sucks');
+			console.log('use a better browser');
 		}
 	}
 }
 
 function deleteTicketSuccess(json) {
 	// - Delete all markers
-	for (let i = markerList.length - 1; i >= 0; i--) {
-		markerList[i].setMap(null);
+	for (let i = mapVars.markerList.length - 1; i >= 0; i--) {
+		mapVars.markerList[i].setMap(null);
 	}
 	// - New ticket icon at taken ticket's position
 	let marker = new google.maps.Marker({
-		position: pos,
-		map: map,
+		position: mapVars.pos,
+		map: mapVars.map,
 		icon: {
 			url: 'images/my-ticket.png',
 			scaledSize: new google.maps.Size(100, 100)
@@ -175,13 +176,13 @@ function deleteTicketError(json) {
 
 function updateTicketSuccess(json) {
 	// - Delete all markers
-	for (let i = markerList.length - 1; i >= 0; i--) {
-		markerList[i].setMap(null);
+	for (let i = mapVars.markerList.length - 1; i >= 0; i--) {
+		mapVars.markerList[i].setMap(null);
 	}
 	// - New ticket icon at update ticket's position
 	let marker = new google.maps.Marker({
-		position: pos,
-		map: map,
+		position: mapVars.pos,
+		map: mapVars.map,
 		icon: {
 			url: 'images/my-ticket.png',
 			scaledSize: new google.maps.Size(100, 100)

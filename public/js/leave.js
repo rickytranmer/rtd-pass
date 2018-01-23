@@ -1,5 +1,8 @@
-let infoWindow, pos, map;
-
+function initVars() {
+	let infoWindow, map;
+	mapVars = { infoWindow, map };
+	initMap();
+}
 function initMap() {
 	// - Map options
 	let options = {
@@ -15,12 +18,11 @@ function initMap() {
 	}
 
 	// - Create map
-	map = new google.maps.Map(document.getElementById('map'), options);
-	console.log(map);
+	mapVars.map = new google.maps.Map(document.getElementById('map'), options);
 	centerMap();
 
 	// - Listen for click on map
-	let mapClick = google.maps.event.addListener(map, 'click', function(event){
+	let mapClick = google.maps.event.addListener(mapVars.map, 'click', function(event){
 		// - Add marker
 		addMarker({coords:event.latLng});
 	});
@@ -29,28 +31,28 @@ function initMap() {
 	function addMarker(props){
 		let marker = new google.maps.Marker({
 			position: props.coords,
-			map: map,
+			map: mapVars.map,
     		icon: {
 				url: "images/new-ticket.png",
 				scaledSize: new google.maps.Size(100, 100)
 			}
 		});
 		marker.addListener('click', function() {
-			if (infoWindow) { infoWindow.close() }
-			infoWindow.open(map, marker);
+			if (mapVars.infoWindow) { mapVars.infoWindow.close() }
+			mapVars.infoWindow.open(mapVars.map, marker);
 			formButtons(marker);
 		});
 
 		// - Form in popup window to take ticket time
-		if (infoWindow) {infoWindow.close()}
-		infoWindow = new google.maps.InfoWindow({
+		if (mapVars.infoWindow) {mapVars.infoWindow.close()}
+		mapVars.infoWindow = new google.maps.InfoWindow({
 			content: '<div class="container-fluid"><form id="ticket-form" action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="expireTime" placeholder="Expiration / Note" required></div><div class="form-group"><button id="leaveButton" class="btn btn-lg col-10 btn-primary">Submit</button></div></form><button id="cancelButton" class="btn btn-lg col-8 btn-danger">Remove</button></div>'
 		});
-		infoWindow.open(map, marker);
+		mapVars.infoWindow.open(mapVars.map, marker);
 	
 		// - Only allow one new ticket on map
 		google.maps.event.removeListener(mapClick);
-		let newClick = google.maps.event.addListener(map, 'click', function(event){
+		let newClick = google.maps.event.addListener(mapVars.map, 'click', function(event){
 			marker.setMap(null);
 			addMarker({coords:event.latLng});
 		});
@@ -63,21 +65,21 @@ function initMap() {
 // - Center map if location is available
 function centerMap(currentPos) {
 	if (currentPos) {
-		map.setCenter(currentPos);
+		mapVars.map.setCenter(currentPos);
 	} else {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
-				pos = {
+				let pos = {
 					lat: position.coords.latitude,
 					lng: position.coords.longitude
 				};
-				map.setCenter(pos);
+				mapVars.map.setCenter(pos);
 				setTimeout(function() {centerMap()}, 30000);
 			}, function() {
 				console.log('location denied');
 			});
 		} else {  // - Browser doesn't support Geolocation
-			console.log('your browser sucks');
+			console.log('use a better browser');
 		}
 	}
 }
@@ -97,7 +99,7 @@ function formButtons(marker) {
 			});
 		});
 		$('#cancelButton').click(function() {
-			if (infoWindow) { infoWindow.close() }
+			if (mapVars.infoWindow) { mapVars.infoWindow.close() }
 			marker.setMap(null);
 		});
 	}, 250);	
