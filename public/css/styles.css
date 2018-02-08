@@ -124,6 +124,10 @@ textarea {
 .succesTicket {
 	margin: 10vh auto;
 }
+.opaque {
+	opacity: 0;
+	transition: 1.5s ease all;
+}
 
 @media screen 
   and (min-device-width: 1080px) 

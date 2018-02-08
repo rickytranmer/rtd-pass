@@ -1,4 +1,4 @@
-$(function() {
+$(()=> {
 	console.log('loaded');
 	// - Prevent button text from using transition animation on load
 	$('#signUpBtn').css('transition-property', 'none');
@@ -7,7 +7,9 @@ $(function() {
 	$('#leaveBtn').css('transition-property', 'none');
 	// - Clicking on center of screen will bring you to Take Ticket screen
 	// - If user not logged in, redirected to Log In screen
-	$('#map').click(function() {
+	$('#map').click(()=> {
 		$(location).attr('href', '/take');
 	});
+
+	$('.opaque').css('opacity', '1');
 });
