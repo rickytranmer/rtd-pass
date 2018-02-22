@@ -33,10 +33,10 @@ app.use(function(req, res, next) {
 });
 
 // - Routes
-let router = require('./config/routes');
+const router = require('./config/routes');
 app.use('/', router);
 
-// - Listening on Heroku on port 3000
+// - Listening on Heroku or port 3000
 app.listen(process.env.PORT || 3000, function() {
 	console.log('listening on Andre', process.env.PORT||3000);
 });

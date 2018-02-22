@@ -38,4 +38,6 @@ router.route('/take/:id')
 router.route('/take/:id/edit')
 	.put(authenticatedUser, ticketsController.putTicket);
 
+router.get('*', staticsController.home);
+
 module.exports = router;
