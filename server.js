@@ -1,15 +1,15 @@
-console.log();	// Start server.js
+noconsole.log();	// Start server.js
 console.log((new Date()).toString());
 console.log('- 	/rtd-pass/server.js');
 
 const express 	= require('express');
-const app 		= express();
-const request	= require('request');
+const app 			= express();
+const request		= require('request');
 const passport	= require('passport');
 const flash     = require('connect-flash');
 const session 	= require('express-session');
 const mongoose	= require('mongoose');
-const db 		= require('./models/');
+const db 				= require('./models/');
 
 app.use(express.static(__dirname + '/public'));
 app.use(require('helmet')());

@@ -19,9 +19,9 @@ function getLogin(req, res) {
 
 function postLogin(req, res, next) {
 	var loginStrategy = passport.authenticate('local-login', {
-		successRedirect: '/',
-		failureRedirect: '/login',
-		failureFlash: true
+		successRedirect: 	'/',
+		failureRedirect: 	'/login',
+		failureFlash: 		true
 	});
 	return loginStrategy(req, res, next);
 }

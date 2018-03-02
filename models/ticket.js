@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-let Schema 			= mongoose.Schema;
-let TicketSchema 	= mongoose.Schema({
-	leftBy: 	String,
+let Schema = mongoose.Schema;
+let TicketSchema = mongoose.Schema({
+	leftBy: String,
 	expireTime: String,
 	coords: {
-		lat: 	Number,
-		lng: 	Number
+		lat: Number,
+		lng: Number
 	}
 });
 

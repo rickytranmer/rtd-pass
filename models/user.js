@@ -1,8 +1,8 @@
 const mongoose 	= require('mongoose');
-const bcrypt 	= require('bcrypt-nodejs');
+const bcrypt = require('bcrypt-nodejs');
 
-let Schema 		= mongoose.Schema;
-let UserSchema 	= mongoose.Schema({
+let Schema = mongoose.Schema;
+let UserSchema = mongoose.Schema({
 	email: String,
 	password: String,
 	ticketsTaken: {
