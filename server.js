@@ -1,4 +1,4 @@
-noconsole.log();	// Start server.js
+console.log();	// Start server.js
 console.log((new Date()).toString());
 console.log('- 	/rtd-pass/server.js');
 
