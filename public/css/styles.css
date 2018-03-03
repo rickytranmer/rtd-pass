@@ -117,6 +117,7 @@ textarea {
 	border-radius: 40px;
 	max-height: 75vh;
 	min-height: 70vh;
+	padding: 2vh 1vw;
 }
 ./*ticket-info {
 	margin: 4vh auto;
