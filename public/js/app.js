@@ -1,5 +1,5 @@
 $(()=> {
-	console.log('loaded');
+	console.log('app.js');
 	// - Prevent button text from using transition animation on load
 	$('#signUpBtn').css('transition-property', 'none');
 	$('#logInBtn').css('transition-property', 'none');

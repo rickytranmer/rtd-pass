@@ -1,5 +1,5 @@
 $(function() {
-	console.log('loaded');
+	console.log('login.js');
 	// - Prevent Sign Up button from animating
 	$('#signUpBtn').css('transition-property', 'none');
 	// - Grow Log In button text
