@@ -22,7 +22,7 @@ function initMap() {
 	centerMap();
 
 	// - Listen for click on map
-	let mapClick = google.maps.event.addListener(mapVars.map, 'click', function(event){
+	let mapClick = google.maps.event.addListener(mapVars.map, 'click', function(event) {
 		// - Add marker
 		addMarker({coords:event.latLng});
 	});
@@ -52,7 +52,7 @@ function initMap() {
 	
 		// - Only allow one new ticket on map
 		google.maps.event.removeListener(mapClick);
-		let newClick = google.maps.event.addListener(mapVars.map, 'click', function(event){
+		let newClick = google.maps.event.addListener(mapVars.map, 'click', function(event) {
 			marker.setMap(null);
 			addMarker({coords:event.latLng});
 		});
@@ -74,7 +74,7 @@ function centerMap(currentPos) {
 					lng: position.coords.longitude
 				};
 				mapVars.map.setCenter(pos);
-				setTimeout(function() {centerMap()}, 30000);
+				setTimeout(()=> { centerMap() }, 30000);
 			}, function() {
 				console.log('location denied');
 			});
@@ -85,7 +85,7 @@ function centerMap(currentPos) {
 }
 
 function formButtons(marker) {
-	setTimeout(function() {
+	setTimeout(()=> {
 		$('#ticket-form').on('submit', function(event) {
 			event.preventDefault();
 			let formData = $(this).serialize();
