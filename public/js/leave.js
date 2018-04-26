@@ -11,7 +11,7 @@ function initMap() {
 		clickableIcons: false,
 		streetViewControl: false,	// - Disable streetView
 		fullscreenControl: false,	// - Disable fullscreen
-		mapTypeControl: true,		// - Dropdown instead of horizontal bar
+		mapTypeControl: true,			// - Dropdown instead of horizontal bar
 		mapTypeControlOptions: {
 		  style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
 		}
@@ -38,13 +38,13 @@ function initMap() {
 			}
 		});
 		marker.addListener('click', function() {
-			if (mapVars.infoWindow) { mapVars.infoWindow.close() }
+			if(mapVars.infoWindow) { mapVars.infoWindow.close() }
 			mapVars.infoWindow.open(mapVars.map, marker);
 			formButtons(marker);
 		});
 
 		// - Form in popup window to take ticket time
-		if (mapVars.infoWindow) {mapVars.infoWindow.close()}
+		if(mapVars.infoWindow) { mapVars.infoWindow.close() }
 		mapVars.infoWindow = new google.maps.InfoWindow({
 			content: '<div class="container-fluid"><form id="ticket-form" action="/take" method="POST"><div class="form-group"><input type="text" class="form-control" name="expireTime" placeholder="Expiration / Note" required></div><div class="form-group"><button id="leaveButton" class="btn btn-lg col-10 btn-primary">Submit</button></div></form><button id="cancelButton" class="btn btn-lg col-8 btn-danger">Remove</button></div>'
 		});
@@ -64,7 +64,7 @@ function initMap() {
 
 // - Center map if location is available
 function centerMap(currentPos) {
-	if (currentPos) {
+	if(currentPos) {
 		mapVars.map.setCenter(currentPos);
 	} else {
 		if (navigator.geolocation) {
@@ -79,7 +79,7 @@ function centerMap(currentPos) {
 				console.log('location denied');
 			});
 		} else {  // - Browser doesn't support Geolocation
-			console.log('use a better browser');
+			console.log('use a better browser like Chrome');
 		}
 	}
 }
@@ -93,11 +93,12 @@ function formButtons(marker) {
 			console.log(formData);
 
 			$.post('/leave', formData, function(doc) {
-				setTimeout(function() {
+				setTimeout(()=> {
 					$(location).attr('href', '/take');
 				}, 250);
 			});
 		});
+
 		$('#cancelButton').click(function() {
 			if (mapVars.infoWindow) { mapVars.infoWindow.close() }
 			marker.setMap(null);
@@ -105,7 +106,7 @@ function formButtons(marker) {
 	}, 250);	
 }
 
-$(function() {
+$(()=> {
 	console.log('leave loaded');
 	$('#leaveBtn').toggleClass('btn-outline-primary').css('letter-spacing', '6px').css('font-size', '4rem');
 });

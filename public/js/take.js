@@ -34,20 +34,20 @@ function initMap() {
 				scaledSize: new google.maps.Size(100, 100)
 			}
 		});
-		if (marker.leftBy === $('#userDisplay').text()) { marker.setIcon('images/my-ticket.png') }
+		if(marker.leftBy === $('#userDisplay').text()) { marker.setIcon('images/my-ticket.png') }
 		mapVars.markerList.push(marker);
 
 		marker.addListener('click', function() {
-			if (mapVars.infoWindow) { mapVars.infoWindow.close() }
-			if (mapVars.editWindow) { mapVars.editWindow.close() }
+			if(mapVars.infoWindow) { mapVars.infoWindow.close() }
+			if(mapVars.editWindow) { mapVars.editWindow.close() }
 			mapVars.pos = {
 				lat: marker.position.lat(),
 				lng: marker.position.lng()
 			};
 			centerMap(mapVars.pos);
 
-			if (this.leftBy === $('#userDisplay').text()) {
-				if (marker.expireTime.length < 7) {
+			if(this.leftBy === $('#userDisplay').text()) {
+				if(marker.expireTime.length < 7) {
 					mapVars.editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 id=claimInfo class='col-12 ticket-info make-longer'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
 				} else {
 					mapVars.editWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 id=claimInfo class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='editButton' data-id='" + this.id + "' class='btn btn-success col-12'>EDIT</button></div>"});
@@ -55,10 +55,10 @@ function initMap() {
 				}
 				// - Click listener for editButton
 				$('#editButton').off();
-				setTimeout(function() {
+				setTimeout(()=> {
 					$('#editButton').click(function() {
 						console.log($('#editButton').text())
-						if ($('#editButton').text() === 'EDIT') {
+						if($('#editButton').text() === 'EDIT') {
 							console.log('edit clicked');
 							$('#claimInfo').html("<textarea id='claimInfo' class='col-12 ticket-info' autofocus>"+marker.expireTime+"</textarea>");
 							$('#editButton').text('SAVE');
@@ -94,7 +94,7 @@ function initMap() {
 				mapVars.infoWindow = new google.maps.InfoWindow({content:"<div class='container-fluid'><h3 class='col-12 ticket-info'>" + marker.expireTime + "</h3><button id='claimButton' data-id='" + this.id + "' class='btn btn-primary'>CLAIM</button>"});
 				// - Click listener for claimButton
 				$('#claimButton').off();
-				setTimeout(function() {
+				setTimeout(()=> {
 					$('#claimButton').click(function() {
 						marker.setMap(null);
 						mapVars.markerList.splice(mapVars.markerList.indexOf(marker), 1);
@@ -122,31 +122,31 @@ function initMap() {
 	});
 }
 
-// - Center map if location is available
+// - Center map iflocation is available
 function centerMap(currentPos) {
-	if (currentPos) {
+	if(currentPos) {
 		mapVars.map.setCenter(currentPos);
 	} else {
-		if (navigator.geolocation) {
+		if(navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				mapVars.pos = {
 					lat: position.coords.latitude,
 					lng: position.coords.longitude
 				};
 				mapVars.map.setCenter(mapVars.pos);
-				setTimeout(function() {centerMap()}, 30000);
+				setTimeout(()=> { centerMap() }, 45000);
 			}, function() {
 				console.log('location denied');
 			});
 		} else {	// - Browser doesn't support Geolocation
-			console.log('use a better browser');
+			console.log('use a better browser like Chrome');
 		}
 	}
 }
 
 function deleteTicketSuccess(json) {
 	// - Delete all markers
-	for (let i = mapVars.markerList.length - 1; i >= 0; i--) {
+	for(let i = mapVars.markerList.length - 1; i >= 0; i--) {
 		mapVars.markerList[i].setMap(null);
 	}
 	// - New ticket icon at taken ticket's position
@@ -161,9 +161,9 @@ function deleteTicketSuccess(json) {
 	
 	// - Flash SUCCESS
 	$('#takeBtn').text('SUCCESS').css('color', '#2ECC40').css('letter-spacing', '3px').css('font-size', '2rem');
-	setTimeout(function() {
+	setTimeout(()=> {
 		$('#takeBtn').css('letter-spacing', '6px').css('font-size', '4rem');
-		setTimeout(function() {
+		setTimeout(()=> {
 			$('#takeBtn').text('TAKE').css('color', '#007BFF');
 		},750);
 	},500);
@@ -171,12 +171,12 @@ function deleteTicketSuccess(json) {
 
 function deleteTicketError(json) {
 	console.log('ajax error');
-	if (json) { console.log(json) }
+	if(json) { console.log(json) }
 }
 
 function updateTicketSuccess(json) {
 	// - Delete all markers
-	for (let i = mapVars.markerList.length - 1; i >= 0; i--) {
+	for(let i = mapVars.markerList.length - 1; i >= 0; i--) {
 		mapVars.markerList[i].setMap(null);
 	}
 	// - New ticket icon at update ticket's position
@@ -191,9 +191,9 @@ function updateTicketSuccess(json) {
 	
 	// - Flash SUCCESS
 	$('#takeBtn').text('SUCCESS').css('color', '#2ECC40').css('letter-spacing', '3px').css('font-size', '2rem');
-	setTimeout(function() {
+	setTimeout(()=> {
 		$('#takeBtn').css('letter-spacing', '6px').css('font-size', '4rem');
-		setTimeout(function() {
+		setTimeout(()=> {
 			$(location).attr('href', '/take');
 		},750);
 	},500);
@@ -201,10 +201,10 @@ function updateTicketSuccess(json) {
 
 function updateTicketError(json) {
 	console.log('ajax error');
-	if (json) { console.log(json) }
+	if(json) { console.log(json) }
 }
 
-$(function() {
+$(()=> {
 	console.log('take loaded');
 	$('#takeBtn').toggleClass('btn-outline-primary').css('letter-spacing', '6px').css('font-size', '4rem');
 });

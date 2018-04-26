@@ -6,7 +6,7 @@ const ticketsController = require('../controllers/tickets');
 const staticsController = require('../controllers/statics');
 
 function authenticatedUser(req, res, next) {
-	if (req.isAuthenticated()) { return next() }
+	if(req.isAuthenticated()) { return next() }
 	res.redirect('/login');
 }
 
